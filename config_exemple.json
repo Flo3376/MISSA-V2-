@@ -1,0 +1,11 @@
+{ 
+   "token"   : "token donnée pour app dev de discord" ,
+   "prefix" : "+" ,
+   "kill_id_salon": "ID du salon où sera mis un membre à calmer", 
+   "bm_id_role": "ID du roles baby monkeys", 
+   "gm_id_role": "ID du roles galactid monkeys",
+   "jgm_id_role": "ID du roles jeunes baby monkeys",
+   "this_guild": "ID de la guild",
+   "salon_auto_says":["tableau contenant les ID des salons ou l'action auto says sera utilisé"],
+   "salon_auto_play":["tableau contenant les ID des salons ou l'action auto plays sera utilisé"]
+}

@@ -1,0 +1,17 @@
+{
+	"Discord":{"name" : "Discord","path":"discord.js", "type":"global","info":"lancement de la lib discord"},
+	"request":{"name" : "request","path":"request", "type":"global","info":"on charge la methode request pour faire une demande post"},
+	"fs":{"name" : "fs","path":"fs", "type":"global","info":"lancement de la lib de lecture distante"},
+	"util":{"name" : "util","path":"util", "type":"global","info":"lancement de la lib de lecture distante"},
+	"ytdl":{"name" : "ytdl","path":"ytdl-core", "type":"global","info":"lancement et création des variable de la lib youtube"},
+	"googleTTS":{"name" : "googleTTS","path":"google-tts-api", "type":"global","info":"lancement la lib google traduction"},
+	"config":{"name" : "config","path":"./config.json", "type":"global","info":"récupération de la configuration du bot"},
+	"sqlite3":{"name" : "sqlite3","path":"sqlite3", "type":"global","info":"chargement de la lib mysql_lite3"},
+	"sqlite":{"name" : "sqlite","path":"./class/db.js", "type":"global","info":"récupération de l'objet db"},
+	"monkeys":{"name" : "monkeys","path":"./class/monkey.js", "type":"global","info":"récupération de l'objet monkey"},
+	"salon_m":{"name" : "salon_m","path":"./class/salon.js", "type":"global","info":"récupération de l'objet salon"},
+	"msg_sw":{"name" : "msg_sw","path":"./class/msg_sw.js", "type":"global","info":"récupération de l'objet message"},
+	"mysql":{"name" : "mysql","path":"mysql", "type":"global","info":"lancement de la lib MYSQL"}
+
+	 
+}

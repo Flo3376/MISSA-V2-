@@ -1,0 +1,13 @@
+
+config.json
+*.mp3
+*.htc
+db/db_bot.sql3
+db/salons.json
+db/log.txt
+/db/log_sql.txt
+db/members.json
+embed/to_bm.js
+embed/to_gm.js
+ecosystem.config.js
+process.json
