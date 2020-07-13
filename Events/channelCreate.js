@@ -1,4 +1,4 @@
-//const mysql = require('mysql');
+
 module.exports = async ( client , channel ) => {
 	let i=2200
 	var mysql_con_1=[]
@@ -21,7 +21,6 @@ module.exports = async ( client , channel ) => {
 
 			if(typeof result!==undefined && result)
 			{
-				//console.log(unescape(result[0].name))
 				if(result.length===0)
 				{
 					var entry = `'','${channel.id}','${escape(channel.name)}','${channel.type}'`
@@ -30,10 +29,7 @@ module.exports = async ( client , channel ) => {
 						if (err) throw err;
 						if(typeof result!==undefined && result)
 						{
-							console.log("j'ai créé "+channel.name)
-							//console.log("on m'a répondu ")
-							//console.log(result)
-							console.log(result.insertId)
+							console.log("j'ai créé "+channel.name +"=>"+result.insertId)
 						}
 					});
 				}

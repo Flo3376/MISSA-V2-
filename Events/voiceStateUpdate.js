@@ -1,6 +1,6 @@
 //lorsque qu'un membre rentre dans salon
 module.exports = async(client,oldMember, newMember)=>{
-		let last_channel_id="";
+	let last_channel_id="";
 	//si l'on détecte un mouvement de sortie de salon
 	if(oldMember)
 	{
@@ -35,6 +35,7 @@ module.exports = async(client,oldMember, newMember)=>{
 			//si l'id de lancien channel et bien différent du nouveau, c'est qu'il s'agit d'un mouvement réelle
 			if(last_channel_id !== newMember.channel.id)
 			{
+				/*
 				//on prépare l'objet monkeys
 				let monkey= new monkeys();
 
@@ -58,6 +59,59 @@ module.exports = async(client,oldMember, newMember)=>{
 				info = await monkey.update_m(new_data).then()
 
 				monkeys_list[newMember.id]=monkey;
+				*/
+				let i=2400
+				var mysql_con_2=[]
+				let connect= new Promise((resolve,reject)=>
+				{ 
+					i++
+					mysql_con_2[i] = mysql.createConnection({
+						host: config.db_host,
+						user: config.db_user,
+						password: config.db_password,
+						database: config.db_name,
+						connectionLimit: 50,
+					});resolve(i)
+				})
+				connect.then((i)=>{
+
+					mysql_con_2[i].query("SELECT * FROM `e107_discord_user`  WHERE `real_id`="+newMember.id, function (err, result, fields)
+					{
+						if (err) throw err;
+
+						if(typeof result!==undefined && result)
+						{
+							if(result.length===0)
+							{
+								var entry = `'','${newMember.id}','${escape(usr.username)}','NULL','${Date.now()}','${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}','${newMember.channel.id}','inc','inc','0','5'`
+								var sql="INSERT INTO `e107_discord_user` (id,real_id, name,nickname, time,date, salon, game , type , alert ,jeton) VALUES ("+entry+")"
+								mysql_con_2[i].query(sql, function (err, result, fields) {
+									if (err) throw err;
+									if(typeof result!==undefined && result)
+									{
+										console.log("j'ai créé "+newMember.member.user.username +"=>"+result.insertId)
+									}
+
+								});
+							}
+							else
+							{
+								var sql="UPDATE `e107_discord_user` SET `time` ='"+Date.now()+"',`date` = '"+new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')+"', `salon` = '"+newMember.channel.id+"' WHERE real_id="+newMember.id
+								mysql_con_2[i].query(sql, function (err, result, fields) {
+									if (err) throw err;
+									if(typeof result!==undefined && result)
+									{
+										console.log("j'ai mis à jour "+newMember.member.user.username +"=>"+result.insertId)
+									}
+								});
+							}
+							mysql_con_2[i].end()
+							delete mysql_con_2[i]
+						}
+						let monkey={"real_id":newMember.id, 'name': newMember.member.user.username, "nickname":null, "time":Date.now(), "date" :new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),"salon":newMember.channel.id}
+						monkeys_list[newMember.id]=monkey
+					})
+				})
 
 				/*
 				//si le joueur avait définis un pseudo
@@ -99,7 +153,7 @@ module.exports = async(client,oldMember, newMember)=>{
 				//si le membre rentre dans un salon vocal où il doit être accueillit pas un message vocal de bienvenue
 				if(config.salon_auto_says.includes(newMember.channel.id))
 				{
-					if(newMember.member.user.username!=="missa")
+					if(newMember.member.user.username!="missa")
 					{
 						text="Bonjour.... Sois le bienvenue"+newMember.member.user.username+"dans ce serveur. Pour connaître mes possibilité utilises la commande   +help";
 						googleTTS(text, 'fr', 1)   
@@ -124,8 +178,60 @@ module.exports = async(client,oldMember, newMember)=>{
 		}
 		else
 		{ 
+			let i=2400
+			var mysql_con_2=[]
+			let connect= new Promise((resolve,reject)=>
+			{ 
+				i++
+				mysql_con_2[i] = mysql.createConnection({
+					host: config.db_host,
+					user: config.db_user,
+					password: config.db_password,
+					database: config.db_name,
+					connectionLimit: 50,
+				});resolve(i)
+			})
+			connect.then((i)=>{
+
+				mysql_con_2[i].query("SELECT * FROM `e107_discord_user`  WHERE `real_id`="+newMember.id, function (err, result, fields)
+				{
+					if (err) throw err;
+
+					if(typeof result!==undefined && result)
+					{
+						if(result.length===0)
+						{
+							var entry = `'','${newMember.id}','${escape(usr.username)}','NULL','${Date.now()}','${new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')}','${newMember.channel.id}','inc','inc','0','5'`
+							var sql="INSERT INTO `e107_discord_user` (id,real_id, name,nickname, time,date, salon, game , type , alert ,jeton) VALUES ("+entry+")"
+							mysql_con_2[i].query(sql, function (err, result, fields) {
+								if (err) throw err;
+								if(typeof result!==undefined && result)
+								{
+									console.log("j'ai créé "+newMember.member.user.username +"=>"+result.insertId)
+								}
+
+							});
+						}
+						else
+						{
+							var sql="UPDATE `e107_discord_user` SET `time` ='"+Date.now()+"',`date` = '"+new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')+"', `salon` = 'out' WHERE real_id="+newMember.id
+							mysql_con_2[i].query(sql, function (err, result, fields) {
+								if (err) throw err;
+								if(typeof result!==undefined && result)
+								{
+									console.log("j'ai mis à jour "+newMember.member.user.username +"=>"+result.insertId)
+								}
+							});
+						}
+						mysql_con_2[i].end()
+						delete mysql_con_2[i]
+					}
+					let monkey={"real_id":newMember.id, 'name': newMember.member.user.username, "nickname":null, "time":Date.now(), "date" :new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),"salon": "out"}
+					monkeys_list[newMember.id]=monkey
+				})
+			})
 			//on prépare l'objet monkeys
-			let monkey= new monkeys();
+			/*let monkey= new monkeys();
 
 			//on recherche un correspondance avec un utilisateur existant
 			let info = await monkey.search_m(newMember.id).then()
@@ -148,7 +254,7 @@ module.exports = async(client,oldMember, newMember)=>{
 
 
 
-			monkeys_list[newMember.id]=monkey;
+			monkeys_list[newMember.id]=monkey;*/
 
 
 			//si le joueur avait définis un pseudo

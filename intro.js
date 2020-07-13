@@ -1,3 +1,4 @@
+console.log("\x1b[31m", "")
 console.log("                                                           _...---.._")
 console.log("                                                       _.'`       -_ ``.")
 console.log("                                                   .-'`                 `.")
@@ -24,4 +25,4 @@ console.log("             '   .`")
 console.log("            '  .`")
 console.log("            `  '.")
 console.log("            `.___;")
-console.log("")
+console.log('\x1b[0m', '');
